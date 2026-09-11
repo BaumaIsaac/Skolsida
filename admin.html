@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skolsidan – Adminvy</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Nunito:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="tema-admin">
+  <header class="sidhuvud">
+    <h1><img src="img/logo.png" alt="Arboga kommun – Högskolecentrum" class="sidhuvud-logga" /></h1>
+    <div class="anvandare-info">
+      <span id="inloggad-info"></span>
+      <button class="logga-ut-knapp" onclick="loggaUt()">Logga ut</button>
+    </div>
+  </header>
+
+  <!-- Den här menyn ligger utanför innehållsytan med flit, så den
+       alltid finns kvar även när riktigt innehåll läggs till nedanför. -->
+  <nav class="adminmeny">
+    <span class="adminmeny-etikett">Gå till:</span>
+    <a href="admin.html" class="adminmeny-lank aktiv">Min vy</a>
+    <a href="linda.html" class="adminmeny-lank">Lindhas vy</a>
+    <a href="naomi.html" class="adminmeny-lank">Naiomis vy</a>
+  </nav>
+
+  <main class="innehall innehall--brett">
+    <div class="valkomstkort">
+      <h2>Välkommen, Admin!</h2>
+    </div>
+
+    <!-- Snabb översikt över innehållet i de andra vyerna -->
+    <section class="sektion" id="oversikt-sektion">
+      <h2>Översikt</h2>
+      <p class="sektion-info">En snabb koll på vad som finns i de olika vyerna just nu.</p>
+      <div class="oversikt-grid" id="oversikt-grid"></div>
+    </section>
+
+    <!-- Samma delade kalender som Lindha och Naiomi ser -->
+    <section class="sektion">
+      <h2>Delad kalender</h2>
+      <p class="sektion-info">Den här kalendern delas med Lindha och Naiomi.</p>
+
+      <div class="kalender-formular">
+        <input type="date" id="kalender-datum" />
+        <input type="time" id="kalender-tid" />
+        <input type="text" id="kalender-plats" placeholder="Plats" />
+        <input type="text" id="kalender-text" placeholder="Vad ska hända?" />
+        <button onclick="laggTillKalenderHandelse()">Lägg till</button>
+      </div>
+
+      <ul class="kalender-lista" id="kalender-lista"></ul>
+    </section>
+  </main>
+
+  <script src="js/script.js"></script>
+  <script>
+    kravInloggning("admin");
+  </script>
+</body>
+</html>
