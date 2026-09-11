@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skolsidan – Naiomis vy</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Nunito:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="tema-naomi">
+  <header class="sidhuvud">
+    <h1><img src="img/logo.png" alt="Arboga kommun – Högskolecentrum" class="sidhuvud-logga" /></h1>
+    <div class="anvandare-info">
+      <span id="inloggad-info"></span>
+      <button class="logga-ut-knapp" onclick="loggaUt()">Logga ut</button>
+    </div>
+  </header>
+
+  <nav id="adminmeny" class="adminmeny dold">
+    <span class="adminmeny-etikett">Gå till:</span>
+    <a href="admin.html" class="adminmeny-lank">Adminvy</a>
+    <a href="linda.html" class="adminmeny-lank">Lindhas vy</a>
+    <a href="naomi.html" class="adminmeny-lank aktiv">Naiomis vy</a>
+  </nav>
+
+  <main class="innehall innehall--brett">
+    <div class="valkomstkort">
+      <h2>Välkommen, Naiomi!</h2>
+    </div>
+
+    <section class="sektion">
+      <h2>Genvägar</h2>
+      <div class="genvagar">
+        <a class="genvag-knapp" href="https://outlook.office.com/mail/" target="_blank" rel="noopener">
+          <span class="genvag-ikon">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <rect width="48" height="48" rx="10" fill="#0a63c9" />
+              <rect x="10" y="14" width="28" height="20" rx="2" fill="#ffffff" />
+              <path d="M10 15 L24 26 L38 15" stroke="#0a63c9" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>Outlook
+        </a>
+        <a class="genvag-knapp" href="https://teams.microsoft.com/" target="_blank" rel="noopener">
+          <span class="genvag-ikon">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <rect width="48" height="48" rx="10" fill="#5b5fc7" />
+              <circle cx="24" cy="19" r="7.5" fill="#ffffff" />
+              <path d="M11 37c0-7.2 5.8-11.5 13-11.5s13 4.3 13 11.5" fill="#ffffff" />
+            </svg>
+          </span>Teams
+        </a>
+        <a class="genvag-knapp" href="https://www.office.com/launch/excel" target="_blank" rel="noopener">
+          <span class="genvag-ikon">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <rect width="48" height="48" rx="10" fill="#1c6b3f" />
+              <rect x="10" y="10" width="28" height="28" rx="3" fill="#ffffff" />
+              <path d="M16 16 L23 24 L16 32" stroke="#1c6b3f" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M32 16 L25 24 L32 32" stroke="#1c6b3f" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>Excel
+        </a>
+      </div>
+    </section>
+
+    <!-- Delad kalender - samma kalender som Lindha och Admin ser -->
+    <section class="sektion">
+      <h2>Delad kalender</h2>
+      <p class="sektion-info">Den här kalendern delas med Lindha och Admin.</p>
+
+      <div class="kalender-formular">
+        <input type="date" id="kalender-datum" />
+        <input type="time" id="kalender-tid" />
+        <input type="text" id="kalender-plats" placeholder="Plats" />
+        <input type="text" id="kalender-text" placeholder="Vad ska hända?" />
+        <button onclick="laggTillKalenderHandelse()">Lägg till</button>
+      </div>
+
+      <ul class="kalender-lista" id="kalender-lista"></ul>
+    </section>
+
+    <!-- Anteckningsverktyget - Naiomis viktigaste funktion -->
+    <section class="sektion" id="anteckningsverktyg-sektion">
+      <h2>Anteckningsverktyg</h2>
+      <p class="sektion-info">Samla alla dina anteckningar på ett ställe. Klicka på en anteckning i listan för att öppna den. Varje anteckning kan vara max 1000 tecken lång.</p>
+
+      <div class="anteckningsverktyg">
+        <div class="anteckningslista-panel">
+          <input type="search" id="anteckning-sok" placeholder="Sök anteckning..." oninput="renderaAnteckningslista()" />
+          <button class="ny-anteckning-knapp" onclick="skapaNyAnteckning()">+ Ny anteckning</button>
+          <ul class="anteckningslista" id="anteckningslista"></ul>
+        </div>
+
+        <div id="anteckning-editor-yta"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/script.js"></script>
+  <script>
+    kravInloggning("naomi");
+  </script>
+</body>
+</html>

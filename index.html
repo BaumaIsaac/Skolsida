@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skolsidan – Logga in</title>
+
+  <!-- Google Fonts: Quicksand (rubriker) och Nunito (brödtext) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Nunito:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="login-sida">
+    <h1 class="skolnamn"><img src="img/logo.png" alt="Arboga kommun – Högskolecentrum" class="skolnamn-logga" /></h1>
+    <p class="skolnamn-underrubrik">Klicka på din namnskylt för att logga in</p>
+
+    <div class="namnskyltar">
+      <button class="namnskylt" data-anvandare="linda">Lindha</button>
+      <button class="namnskylt" data-anvandare="naomi">Naiomi</button>
+      <button class="namnskylt" data-anvandare="admin">Admin</button>
+    </div>
+
+    <div id="tavla" class="tavla dold">
+      <form id="inloggningsformular">
+        <label id="tavla-rubrik" for="losenord">Lösenord</label>
+        <input type="password" id="losenord" name="losenord" autocomplete="current-password" />
+        <button type="submit" class="logga-in-knapp">Logga in</button>
+        <p id="felmeddelande" class="felmeddelande"></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

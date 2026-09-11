@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skolsidan – Lindhas vy</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Nunito:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="tema-linda">
+  <header class="sidhuvud">
+    <h1><img src="img/logo.png" alt="Arboga kommun – Högskolecentrum" class="sidhuvud-logga" /></h1>
+    <div class="anvandare-info">
+      <span id="inloggad-info"></span>
+      <button class="logga-ut-knapp" onclick="loggaUt()">Logga ut</button>
+    </div>
+  </header>
+
+  <nav id="adminmeny" class="adminmeny dold">
+    <span class="adminmeny-etikett">Gå till:</span>
+    <a href="admin.html" class="adminmeny-lank">Adminvy</a>
+    <a href="linda.html" class="adminmeny-lank aktiv">Lindhas vy</a>
+    <a href="naomi.html" class="adminmeny-lank">Naiomis vy</a>
+  </nav>
+
+  <main class="innehall innehall--brett">
+    <div class="valkomstkort">
+      <h2>Välkommen, Lindha!</h2>
+    </div>
+
+    <!-- Genvägar till andra system. Länken till kontaktlistan är en
+         platshållare (#) tills Lindha skickar den riktiga länken. -->
+    <section class="sektion">
+      <h2>Genvägar</h2>
+      <div class="genvagar">
+        <a class="genvag-knapp" href="https://web.skola24.se/timetable/timetable-viewer/arboga.skola24.se/H%C3%B6gskolecentrum/" target="_blank" rel="noopener">
+          <span class="genvag-ikon">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <rect width="48" height="48" rx="10" fill="#00A19A" />
+              <rect x="15" y="8" width="3" height="8" rx="1.5" fill="#00786F" />
+              <rect x="30" y="8" width="3" height="8" rx="1.5" fill="#00786F" />
+              <rect x="10" y="12" width="28" height="24" rx="3" fill="#ffffff" />
+              <rect x="10" y="12" width="28" height="7" fill="#00786F" />
+            </svg>
+          </span>Skola24
+        </a>
+        <a class="genvag-knapp" href="https://m01-mg-local.weblogin.vmkfb.se/samlv2/idp/sign_in/53" target="_blank" rel="noopener">
+          <span class="genvag-ikon">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <rect width="48" height="48" rx="10" fill="#2E5AAC" />
+              <path d="M24 13 L41 20 L24 27 L7 20 Z" fill="#ffffff" />
+              <path d="M15 23 v6 c0 2.7 4.2 4.7 9 4.7 s9 -2 9 -4.7 v-6" fill="none" stroke="#ffffff" stroke-width="2.5" />
+            </svg>
+          </span>Edlevo
+        </a>
+        <a class="genvag-knapp" href="#">
+          <span class="genvag-ikon">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <rect width="48" height="48" rx="10" fill="#b5607a" />
+              <circle cx="24" cy="18" r="6.5" fill="#ffffff" />
+              <path d="M11 37c0-7 6-11 13-11s13 4 13 11" fill="#ffffff" />
+            </svg>
+          </span>Kontaktlista
+        </a>
+        <a class="genvag-knapp" href="https://www.office.com/launch/excel" target="_blank" rel="noopener">
+          <span class="genvag-ikon">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <rect width="48" height="48" rx="10" fill="#1c6b3f" />
+              <rect x="10" y="10" width="28" height="28" rx="3" fill="#ffffff" />
+              <path d="M16 16 L23 24 L16 32" stroke="#1c6b3f" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M32 16 L25 24 L32 32" stroke="#1c6b3f" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>Excel
+        </a>
+      </div>
+    </section>
+
+    <!-- Delad kalender - samma kalender som Naiomi och Admin ser -->
+    <section class="sektion">
+      <h2>Delad kalender</h2>
+      <p class="sektion-info">Den här kalendern delas med Naiomi och Admin.</p>
+
+      <div class="kalender-formular">
+        <input type="date" id="kalender-datum" />
+        <input type="time" id="kalender-tid" />
+        <input type="text" id="kalender-plats" placeholder="Plats" />
+        <input type="text" id="kalender-text" placeholder="Vad ska hända?" />
+        <button onclick="laggTillKalenderHandelse()">Lägg till</button>
+      </div>
+
+      <ul class="kalender-lista" id="kalender-lista"></ul>
+    </section>
+
+    <!-- Anteckningstavla - Lindhas egna lappar -->
+    <section class="sektion" id="anteckningstavla-sektion">
+      <h2>Anteckningstavla</h2>
+      <p class="sektion-info">Du kan ha max 9 lappar uppsatta samtidigt. När taket är nått behöver du ta bort en lapp för att sätta upp en ny. Den senast uppsatta lappen visas alltid längst upp till vänster.</p>
+      <div class="tavla-formular">
+        <textarea id="lapp-text" placeholder="Skriv en lapp..."></textarea>
+        <button onclick="laggTillLapp()">Sätt upp lapp</button>
+      </div>
+
+      <div class="lapp-container" id="lapp-container"></div>
+    </section>
+  </main>
+
+  <script src="js/script.js"></script>
+  <script>
+    kravInloggning("linda");
+  </script>
+</body>
+</html>

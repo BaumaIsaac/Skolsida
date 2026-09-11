@@ -1,0 +1,866 @@
+/* ===========================================================
+   SKOLSIDAN – gemensam stilmall
+   Tema: klassrum / anslagstavla
+   Färgerna och typsnitten är samlade högst upp så att det är
+   lätt att ändra dem senare utan att leta i hela filen.
+   =========================================================== */
+
+:root {
+  --grontavla: #2c3b33;      /* mörkgrön, som en griffeltavla */
+  --papper: #f7f3e9;         /* varm pappersfärg, sidans bakgrund */
+  --papper-morkare: #efe8d8; /* lite mörkare papper, för kort/paneler */
+  --penna-rod: #c0453a;      /* röd penna, används för knappar/accent */
+  --tra-brun: #8b5e3c;       /* trälist-brun, kant runt namnskyltar */
+  --krita-gul: #e8c468;      /* krita-gul, används sparsamt som lyft */
+  --text-mork: #2b2b28;      /* nästan svart, brödtext */
+  --text-ljus: #f7f3e9;      /* ljus text på mörk bakgrund */
+
+  --font-rubrik: "Quicksand", sans-serif;
+  --font-text: "Nunito", sans-serif;
+}
+
+/* ===========================================================
+   SIDTEMAN
+   Genom att byta ut CSS-variablerna ovan för en viss sida
+   (via en klass på <body>) återanvänds alla komponenter
+   automatiskt i nya färger - inget annat behöver ändras.
+   =========================================================== */
+
+/* Lindas vy: brun, rosa och grön */
+.tema-linda {
+  --grontavla: #7a5a3a;       /* brun, ersätter den gröna tavlan i sidhuvudet */
+  --tra-brun: #8fa888;        /* grön, används till kanter och dashade linjer */
+  --krita-gul: #e8a3b0;       /* rosa, används till lyft/hover - gjord lite mer rosa */
+  --penna-rod: #c97b86;       /* rosa-röd, till utloggningsknappen */
+  --papper-morkare: #f7e2e6;  /* tydligt rosa-ton papper, istället för beige */
+}
+
+.tema-linda .logga-ut-knapp:hover {
+  background-color: #b56672;
+}
+
+/* Extra rosa detaljer: en rosa kant längs vänsterkanten på varje
+   sektion, och rosa rubriker för lite mer färg på sidan */
+.tema-linda .sektion {
+  border-left: 8px solid #e8a3b0;
+}
+
+.tema-linda .sektion h2 {
+  color: #b5607a;
+}
+
+.tema-linda .valkomstkort {
+  border-color: #e8a3b0;
+  background-color: #f7e2e6;
+}
+
+/* Naomis vy: rosa och grön */
+.tema-naomi {
+  --grontavla: #c97b98;       /* rosa, ersätter den gröna tavlan i sidhuvudet */
+  --tra-brun: #7fa985;        /* grön, används till kanter och dashade linjer */
+  --krita-gul: #bfe3c2;       /* ljusgrön, används till lyft/hover */
+  --penna-rod: #b8657b;       /* mörkare rosa, till utloggningsknappen */
+  --papper-morkare: #f2e9ef;  /* ljus rosa-beige papperston */
+}
+
+.tema-naomi .logga-ut-knapp:hover {
+  background-color: #9c5265;
+}
+
+/* Adminvyn: en varm gråbrun-rosa mix som knyter ihop Lindas och
+   Naomis teman, eftersom admin har tillgång till bådas vyer. */
+.tema-admin {
+  --grontavla: #6b5a52;       /* varm gråbrun, mitt emellan brunt och rosa */
+  --tra-brun: #b98fa0;        /* dämpad rosa-lila, samma familj som Naomis rosa */
+  --krita-gul: #d9c08a;       /* varm guldbeige, samma familj som Lindas brun */
+  --penna-rod: #b8657b;       /* rosa-röd, matchar utloggningsknappen på de andra vyerna */
+  --papper-morkare: #f2ece6;  /* neutral varm papperston som funkar med bägge teman */
+}
+
+.tema-admin .logga-ut-knapp:hover {
+  background-color: #99525f;
+}
+
+/* Regnbågsrand i sidhuvudet som symboliserar att admin knyter
+   ihop alla tre vyernas färger */
+.tema-admin .sidhuvud {
+  border-bottom: 6px solid transparent;
+  border-image: linear-gradient(to right, #7a5a3a, #c97b98, #7fa985) 1;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-text);
+  background-color: var(--papper);
+  color: var(--text-mork);
+  min-height: 100vh;
+}
+
+/* ---------- Sidhuvud (används på alla vy-sidor) ---------- */
+
+.sidhuvud {
+  background-color: var(--grontavla);
+  color: var(--text-ljus);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  border-bottom: 6px solid var(--tra-brun);
+}
+
+.sidhuvud h1 {
+  font-family: var(--font-rubrik);
+  font-weight: 700;
+  font-size: 1.6rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sidhuvud-logga {
+  height: 64px;
+  width: auto;
+  border-radius: 6px;
+  background-color: var(--text-ljus);
+  padding: 4px 8px;
+}
+
+.sidhuvud .anvandare-info {
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logga-ut-knapp {
+  background-color: var(--penna-rod);
+  color: var(--text-ljus);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-family: var(--font-text);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.logga-ut-knapp:hover {
+  background-color: #a53a30;
+  transform: translateY(-1px);
+}
+
+.logga-ut-knapp:focus-visible,
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--krita-gul);
+  outline-offset: 2px;
+}
+
+/* ---------- Adminmeny (för att hoppa mellan vyerna) ---------- */
+
+.adminmeny {
+  background-color: var(--papper-morkare);
+  border-bottom: 2px dashed var(--tra-brun);
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.adminmeny-etikett {
+  font-family: var(--font-rubrik);
+  font-weight: 700;
+  color: var(--grontavla);
+  font-size: 0.9rem;
+}
+
+.adminmeny-lank {
+  text-decoration: none;
+  color: var(--text-mork);
+  background-color: var(--papper);
+  border: 2px solid var(--tra-brun);
+  border-radius: 8px;
+  padding: 0.35rem 0.9rem;
+  font-family: var(--font-text);
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.adminmeny-lank:hover {
+  transform: translateY(-1px);
+  background-color: var(--krita-gul);
+}
+
+.adminmeny-lank.aktiv {
+  background-color: var(--grontavla);
+  border-color: var(--grontavla);
+  color: var(--text-ljus);
+}
+
+/* ---------- Innehållsyta ---------- */
+
+.innehall {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.valkomstkort {
+  background-color: var(--papper-morkare);
+  border: 2px dashed var(--tra-brun);
+  border-radius: 14px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.valkomstkort h2 {
+  font-family: var(--font-rubrik);
+  color: var(--grontavla);
+  margin-top: 0;
+}
+
+.valkomstkort p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* Bredare innehållsyta för sidor med mer innehåll (Linda/Naomi) */
+.innehall--brett {
+  max-width: 1100px;
+}
+
+/* En sektion (kalender, tavla, verktyg) - gemensam ram runt varje del */
+.sektion {
+  background-color: var(--papper-morkare);
+  border: 2px solid var(--tra-brun);
+  border-radius: 14px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.sektion h2 {
+  font-family: var(--font-rubrik);
+  color: var(--grontavla);
+  margin-top: 0;
+}
+
+.sektion-info {
+  font-size: 0.9rem;
+  opacity: 0.75;
+  margin-top: -0.5rem;
+}
+
+/* ===========================================================
+   ADMIN: ÖVERSIKT AV ALLT INNEHÅLL
+   =========================================================== */
+
+.oversikt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.25rem;
+}
+
+.oversikt-kort {
+  background-color: var(--papper);
+  border: 2px solid var(--tra-brun);
+  border-radius: 12px;
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.oversikt-antal {
+  font-family: var(--font-rubrik);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--grontavla);
+  display: block;
+}
+
+.oversikt-etikett {
+  font-size: 0.9rem;
+  opacity: 0.85;
+  margin: 0.35rem 0 1rem;
+}
+
+.oversikt-lank {
+  display: inline-block;
+  text-decoration: none;
+  background-color: var(--grontavla);
+  color: var(--text-ljus);
+  font-family: var(--font-rubrik);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.45rem 1rem;
+  border-radius: 8px;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.oversikt-lank:hover {
+  background-color: var(--penna-rod);
+  transform: translateY(-2px);
+}
+
+/* ===========================================================
+   GENVÄGSKNAPPAR (Skola24, Edlevo, kontaktlista, Outlook, Teams)
+   =========================================================== */
+
+.genvagar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.genvag-knapp {
+  flex: 1 1 160px;
+  text-decoration: none;
+  background-color: var(--grontavla);
+  color: var(--text-ljus);
+  font-family: var(--font-rubrik);
+  font-weight: 700;
+  text-align: center;
+  padding: 1.1rem 1rem;
+  border-radius: 12px;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.genvag-knapp .genvag-ikon {
+  display: block;
+  width: 34px;
+  height: 34px;
+  margin: 0 auto 0.5rem;
+}
+
+.genvag-knapp .genvag-ikon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.genvag-knapp:hover {
+  transform: translateY(-3px);
+  background-color: var(--penna-rod);
+}
+
+/* ===========================================================
+   DELAD KALENDER (används av Linda, Naomi och Admin)
+   =========================================================== */
+
+.kalender-formular {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.kalender-formular input[type="date"],
+.kalender-formular input[type="time"],
+.kalender-formular input[type="text"] {
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  border: 2px solid var(--tra-brun);
+  font-family: var(--font-text);
+  font-size: 0.95rem;
+}
+
+.kalender-formular input[type="text"] {
+  flex: 1 1 200px;
+}
+
+.kalender-formular button {
+  background-color: var(--grontavla);
+  color: var(--text-ljus);
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.25rem;
+  font-family: var(--font-rubrik);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.kalender-formular button:hover {
+  background-color: var(--penna-rod);
+}
+
+.kalender-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.kalender-post {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  background-color: var(--papper);
+  border-left: 6px solid var(--grontavla);
+  border-radius: 8px;
+  padding: 0.7rem 1rem;
+}
+
+.kalender-post.passerad {
+  opacity: 0.5;
+  border-left-color: var(--tra-brun);
+}
+
+.kalender-datum {
+  font-family: var(--font-rubrik);
+  font-weight: 700;
+  color: var(--grontavla);
+  min-width: 90px;
+}
+
+.kalender-text {
+  flex: 1;
+}
+
+.kalender-av {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.kalender-knappar {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.kalender-knappar button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 6px;
+}
+
+.kalender-knappar button:hover {
+  background-color: var(--krita-gul);
+}
+
+.kalender-tom {
+  opacity: 0.7;
+  font-style: italic;
+}
+
+/* ===========================================================
+   ANTECKNINGSTAVLA (Lindas små lappar)
+   =========================================================== */
+
+.tavla-formular {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.tavla-formular textarea {
+  flex: 1 1 250px;
+  min-height: 60px;
+  padding: 0.65rem;
+  border-radius: 8px;
+  border: 2px solid var(--tra-brun);
+  font-family: var(--font-text);
+  font-size: 0.95rem;
+  resize: vertical;
+}
+
+.tavla-formular button {
+  background-color: var(--grontavla);
+  color: var(--text-ljus);
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.25rem;
+  font-family: var(--font-rubrik);
+  font-weight: 700;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.lapp-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.lapp {
+  width: 160px;
+  min-height: 130px;
+  padding: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  position: relative;
+  box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.15);
+  word-wrap: break-word;
+}
+
+/* Ger varje lapp en lite olika lutning, som om de suttit upp ett tag */
+.lapp:nth-child(3n) {
+  transform: rotate(-3deg);
+  background-color: #f6d9dd;
+}
+
+.lapp:nth-child(3n + 1) {
+  transform: rotate(2deg);
+  background-color: #fff3c4;
+}
+
+.lapp:nth-child(3n + 2) {
+  transform: rotate(-1deg);
+  background-color: #d9ecd0;
+}
+
+.lapp-ta-bort {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  opacity: 0.6;
+}
+
+.lapp-ta-bort:hover {
+  opacity: 1;
+}
+
+/* ===========================================================
+   NAOMIS ANTECKNINGSVERKTYG
+   Två spalter: lista med anteckningar till vänster, öppen
+   anteckning till höger. På mobil hamnar de under varandra.
+   =========================================================== */
+
+.anteckningsverktyg {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 1.5rem;
+}
+
+.anteckningslista-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.anteckningslista-panel input[type="search"] {
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  border: 2px solid var(--tra-brun);
+  font-family: var(--font-text);
+}
+
+.ny-anteckning-knapp {
+  background-color: var(--grontavla);
+  color: var(--text-ljus);
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem;
+  font-family: var(--font-rubrik);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.anteckningslista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.anteckningslista li {
+  background-color: var(--papper);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  cursor: pointer;
+}
+
+.anteckningslista li:hover {
+  border-color: var(--tra-brun);
+}
+
+.anteckningslista li.vald {
+  border-color: var(--grontavla);
+  background-color: #fff;
+}
+
+.anteckningslista .lista-titel {
+  font-weight: 700;
+  font-family: var(--font-rubrik);
+  display: block;
+}
+
+.anteckningslista .lista-snutt {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.anteckning-editor {
+  background-color: var(--papper);
+  border: 2px solid var(--tra-brun);
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.anteckning-editor input[type="text"] {
+  font-family: var(--font-rubrik);
+  font-size: 1.15rem;
+  font-weight: 700;
+  padding: 0.5rem;
+  border: none;
+  border-bottom: 2px solid var(--tra-brun);
+  background: transparent;
+}
+
+.anteckning-editor textarea {
+  min-height: 260px;
+  padding: 0.5rem;
+  border: none;
+  font-family: var(--font-text);
+  font-size: 1rem;
+  line-height: 1.5;
+  resize: vertical;
+  background: transparent;
+}
+
+.tecken-raknare {
+  font-size: 0.8rem;
+  opacity: 0.65;
+  text-align: right;
+  margin: -0.4rem 0 0;
+}
+
+.anteckning-editor-knappar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.anteckning-editor-knappar button {
+  border: none;
+  border-radius: 8px;
+  padding: 0.55rem 1.1rem;
+  font-family: var(--font-rubrik);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.spara-anteckning-knapp {
+  background-color: var(--grontavla);
+  color: var(--text-ljus);
+}
+
+.ta-bort-anteckning-knapp {
+  background-color: transparent;
+  color: var(--penna-rod);
+}
+
+.anteckning-tom-vy {
+  opacity: 0.7;
+  font-style: italic;
+  text-align: center;
+  padding: 2rem;
+}
+
+@media (max-width: 700px) {
+  .anteckningsverktyg {
+    grid-template-columns: 1fr;
+  }
+
+  .anteckningslista {
+    max-height: 200px;
+  }
+}
+
+/* ===========================================================
+   INLOGGNINGSSIDAN (index.html)
+   Signaturelementet: tre "namnskyltar" som hänger som på ett
+   klassrumsschema. Man klickar på sin skylt, sedan skriver
+   man in sitt lösenord på en tavla under.
+   =========================================================== */
+
+.login-sida {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 1.5rem;
+  background-color: #f8f8f8; /* samma ton som loggans egen bakgrund */
+}
+
+.skolnamn {
+  font-family: var(--font-rubrik);
+  color: var(--grontavla);
+  text-align: center;
+  margin-bottom: 0.25rem;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.skolnamn-logga {
+  height: 130px;
+  width: auto;
+}
+
+.skolnamn-underrubrik {
+  text-align: center;
+  color: var(--text-mork);
+  margin-top: 0;
+  margin-bottom: 2.5rem;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+/* Namnskyltarna */
+.namnskyltar {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.namnskylt {
+  background-color: var(--papper-morkare);
+  border: 3px solid var(--tra-brun);
+  border-radius: 10px;
+  padding: 1.25rem 1.75rem;
+  font-family: var(--font-rubrik);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-mork);
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Den lilla "spiken" högst upp på skylten, som om den hänger på en tavla */
+.namnskylt::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  background-color: var(--tra-brun);
+  border-radius: 50%;
+}
+
+.namnskylt:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.08);
+}
+
+.namnskylt.vald {
+  background-color: var(--grontavla);
+  color: var(--text-ljus);
+  border-color: var(--grontavla);
+}
+
+/* Döljer tavlan tills en namnskylt har valts */
+.dold {
+  display: none;
+}
+
+/* Tavlan med lösenordsfältet */
+.tavla {
+  background-color: var(--grontavla);
+  border: 8px solid var(--tra-brun);
+  border-radius: 14px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+}
+
+.tavla label {
+  display: block;
+  color: var(--text-ljus);
+  font-family: var(--font-rubrik);
+  margin-bottom: 0.75rem;
+  font-size: 1.05rem;
+}
+
+.tavla input[type="password"] {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  border: none;
+  font-family: var(--font-text);
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.logga-in-knapp {
+  background-color: var(--krita-gul);
+  color: var(--grontavla);
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-family: var(--font-rubrik);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.logga-in-knapp:hover {
+  background-color: #f0d488;
+  transform: translateY(-1px);
+}
+
+.felmeddelande {
+  color: #ffd7d2;
+  background-color: rgba(192, 69, 58, 0.35);
+  border-radius: 8px;
+  padding: 0.5rem;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  min-height: 1.2em;
+}
+
+/* ---------- Mobilanpassning ---------- */
+
+@media (max-width: 480px) {
+  .sidhuvud {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .namnskyltar {
+    gap: 1rem;
+  }
+
+  .namnskylt {
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+  }
+}
